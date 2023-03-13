@@ -11,6 +11,8 @@ void ConfigureServices(IServiceCollection services) {
     {
         options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
     });
+
+    services.AddCors();
 }
 
 ConfigureServices(builder.Services);
@@ -20,7 +22,7 @@ builder.Services.AddEndpointsApiExplorer();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-
+app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
 
 app.MapControllers();
 
